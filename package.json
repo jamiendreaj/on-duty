@@ -1,0 +1,43 @@
+{
+  "name": "on-duty",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Decides which agent skills are switched on. The model proposes, deterministic code decides, and a skill's declared capabilities are enforced rather than advisory.",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./policies": {
+      "types": "./dist/policies.d.ts",
+      "import": "./dist/policies.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "npm run build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "tsc -p tsconfig.test.json && ls dist-test/*.test.js >/dev/null && node --test dist-test/*.test.js"
+  },
+  "keywords": [
+    "agent-skills",
+    "llm",
+    "agent",
+    "prompt-injection",
+    "context-engineering",
+    "guardrails",
+    "capabilities"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "typescript": "^7.0.2"
+  },
+  "types": "./dist/index.d.ts"
+}
