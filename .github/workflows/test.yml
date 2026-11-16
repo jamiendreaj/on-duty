@@ -1,0 +1,29 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+
+      # No API key, deliberately. decide() is a pure function and the roster is
+      # ordinary state, so the suite never needs a model to run.
+      - run: npm test
+
+      # The declarations are the product here too: a host depends on these
+      # types to call allows() correctly, so build them and find out.
+      - run: npm run build
+      - run: npm run typecheck
+
+      # The benchmark is NOT run here. It costs about a dollar of real API time
+      # per full run and needs a key, so it stays a thing you run on purpose.
+      # bench/results.json is committed so the numbers can be read without it.
